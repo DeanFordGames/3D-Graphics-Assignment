@@ -43,7 +43,7 @@ int main()
 	RenderTexture mergeRT(200, 200);
 
 	bool quit = false;
-	float angle = 0.0f;
+	float angle = 90.0f;
 
 
 	glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)WINDOW_WIDTH / (float)WINDOW_HEIGHT, 0.1f, 100.0f);
@@ -70,12 +70,13 @@ int main()
 				quit = true;
 			}
 		}
+		
+		glm::vec3 pos = glm::vec3(0, 0, -10.0f);
 
-		angle += 0.5f;
 
 		glm::mat4 model(1.0f);
-		model = glm::translate(model, glm::vec3(0, 0, -5.0f));
-		model = glm::rotate(model, glm::radians(angle), glm::vec3(70, 50, 30));
+		model = glm::translate(model, pos);
+		model = glm::rotate(model, glm::radians(angle), glm::vec3(0, 50, 0));
 
 		glViewport(0, 0, 200, 200);
 		rt.bind();
