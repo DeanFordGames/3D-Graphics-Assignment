@@ -1,10 +1,2 @@
-﻿  GameObject.cpp
-  main.cpp
-  Mesh.cpp
-  RenderTexture.cpp
-  Shader.cpp
-  Texture.cpp
-  Window.cpp
-  Generating Code...
-LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
+﻿  main.cpp
   3dGP_Lab1.vcxproj -> E:\UNI LABS\3DGraphics\3D-Graphics-Assignment\3dGP_Lab1\Debug\3dGP_Lab1.exe

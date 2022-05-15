@@ -1,0 +1,10 @@
+﻿  GameObject.cpp
+  main.cpp
+  Mesh.cpp
+  RenderTexture.cpp
+  Shader.cpp
+  Texture.cpp
+  Window.cpp
+main.obj : error LNK2001: unresolved external symbol _WfModelLoad
+Texture.obj : error LNK2001: unresolved external symbol _stbi_load
+E:\UNI LABS\3DGraphics\3D-Graphics-Assignment\3dGP_Lab1\Release\3dGP_Lab1.exe : fatal error LNK1120: 2 unresolved externals

@@ -43,7 +43,7 @@ int main()
 	RenderTexture mergeRT(200, 200);
 
 	bool quit = false;
-	float angle = 90.0f;
+	float angle = 0.0f;
 
 
 	glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)WINDOW_WIDTH / (float)WINDOW_HEIGHT, 0.1f, 100.0f);
@@ -73,7 +73,6 @@ int main()
 		
 		glm::vec3 pos = glm::vec3(0, 0, -10.0f);
 
-
 		glm::mat4 model(1.0f);
 		model = glm::translate(model, pos);
 		model = glm::rotate(model, glm::radians(angle), glm::vec3(0, 50, 0));
@@ -81,7 +80,7 @@ int main()
 		glViewport(0, 0, 200, 200);
 		rt.bind();
 
-		glClearColor(1, 0, 0, 1);
+		glClearColor(0.5f, 0, 1, 1);
 		glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 
 		glEnable(GL_DEPTH_TEST);
