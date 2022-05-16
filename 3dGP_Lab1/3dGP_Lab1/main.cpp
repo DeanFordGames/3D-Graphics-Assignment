@@ -21,6 +21,8 @@
 #include "Shader.h"
 #include "RenderTexture.h"
 #include "Mesh.h"
+#include "Box.h"
+#include "GameObject.h"
 
 
 int main()
@@ -42,8 +44,15 @@ int main()
 	RenderTexture blurRT2(200, 200);
 	RenderTexture mergeRT(200, 200);
 
+	std::vector<Box*> boxes;
+
+	boxes.push_back(new Box());
+	boxes.push_back(new Box());
+
+	boxes[0]->SetPosition(glm::vec3(2.0f, 2.0f, -30.0f));
+	boxes[1]->SetPosition(glm::vec3(-2.0f, -2.0f, -30.0f));
+
 	bool quit = false;
-	float angle = 0.0f;
 
 
 	glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)WINDOW_WIDTH / (float)WINDOW_HEIGHT, 0.1f, 100.0f);
@@ -71,11 +80,13 @@ int main()
 			}
 		}
 		
-		glm::vec3 pos = glm::vec3(0, 0, -10.0f);
+		glm::vec3 pos = glm::vec3(0, -2.5f, -15.0f);
+		float angle = 180.0f;
 
 		glm::mat4 model(1.0f);
 		model = glm::translate(model, pos);
-		model = glm::rotate(model, glm::radians(angle), glm::vec3(0, 50, 0));
+		model = glm::rotate(model, glm::radians(angle), glm::vec3(0, 1.0f, 0));
+
 
 		glViewport(0, 0, 200, 200);
 		rt.bind();
@@ -84,6 +95,8 @@ int main()
 		glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 
 		glEnable(GL_DEPTH_TEST);
+
+		///
 
 		lshader.use();
 
@@ -98,7 +111,33 @@ int main()
 		glBindVertexArray(0);
 		glUseProgram(0);
 
+		///
+
+		for (int i = 0; i < boxes.size(); i++)
+		{
+			boxes[i]->Update();
+			glm::mat4 model2(1.0f);
+			model2 = glm::translate(model2, boxes[i]->GetPosition());
+			model2 = glm::rotate(model2, glm::radians(0.0f), glm::vec3(0, 1.0f, 0));
+
+
+			lshader.use();
+
+			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model2));
+			glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
+
+			glBindVertexArray(curuthers.vaoId);
+			glBindTexture(GL_TEXTURE_2D, curuthers.textureId);
+			glDrawArrays(GL_TRIANGLES, 0, curuthers.vertexCount);
+
+
+			glBindVertexArray(0);
+			glUseProgram(0);
+		}
+
+
 		glDisable(GL_DEPTH_TEST);
+
 
 		rt.unbind();
 
@@ -139,7 +178,7 @@ int main()
 
 		blurRT1.unbind();
 
-		int blurIntense = 10;
+		int blurIntense = 1;
 
 		for (int i = 0; i < blurIntense; i++)
 		{
@@ -193,6 +232,7 @@ int main()
 		glBindVertexArray(sm.getId());
 		glBindTexture(GL_TEXTURE_2D, blurRT1.getTexture());
 		glActiveTexture(GL_TEXTURE0 + 1);
+
 		glBindTexture(GL_TEXTURE_2D, rt.getTexture());
 		glActiveTexture(GL_TEXTURE0);
 		glDrawArrays(GL_TRIANGLES, 0, sm.vert_Count());
