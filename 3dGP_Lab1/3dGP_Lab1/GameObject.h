@@ -15,6 +15,7 @@ struct GameObject
 
 	float GetPositionZ() { return _position.z; }
 	float GetPositionX() { return _position.x; }
+	float GetPositionY() { return _position.y; }
 
 private:
 

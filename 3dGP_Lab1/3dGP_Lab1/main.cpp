@@ -46,18 +46,16 @@ int main()
 	RenderTexture mergeRT(200, 200);
 
 	std::vector<Box*> boxes;
-
-	boxes.push_back(new Box());
 	boxes.push_back(new Box());
 
-	boxes[0]->SetPosition(glm::vec3(2.0f, 0.0f, -30.0f));
-	boxes[1]->SetPosition(glm::vec3(-2.0f, 0.0f, -30.0f));
 
 	Player player = Player();
 	player.SetPosition(glm::vec3(0, -2.5f, -15.0f));
 
-	bool quit = false;
 
+	bool quit = false;
+	double oldTime = clock();
+	double spawnTimer = 1000.0;
 
 	glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)WINDOW_WIDTH / (float)WINDOW_HEIGHT, 0.1f, 200.0f);
 
@@ -74,7 +72,10 @@ int main()
 
 	while (!quit)
 	{
-		
+		double deltaTime = clock() - oldTime;
+		oldTime = clock();
+
+
 		SDL_Event event = { 0 };
 		while (SDL_PollEvent(&event))
 		{
@@ -105,7 +106,7 @@ int main()
 			}
 		}
 		
-		player.Update();
+		player.Update(boxes);
 		glm::vec3 pos = player.GetPosition();
 		float angle = 180.0f;
 
@@ -117,7 +118,7 @@ int main()
 		glViewport(0, 0, 200, 200);
 		rt.bind();
 
-		glClearColor(0.5f, 0, 1, 1);
+		glClearColor(0.3f, 0.3f, 1, 1);
 		glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
 
 		glEnable(GL_DEPTH_TEST);
@@ -139,9 +140,29 @@ int main()
 
 		///
 
+		if (spawnTimer <= 0.0)
+		{
+			if (boxes.size() < 5)
+			{
+				boxes.push_back(new Box());
+				spawnTimer = 1000.0;
+			}
+		}
+		else
+		{
+			spawnTimer -= deltaTime;
+		}
+
 		for (int i = 0; i < boxes.size(); i++)
 		{
-			boxes[i]->Update(&player);
+			boxes[i]->Update();
+
+			if (boxes[i]->GetPositionZ() >= -10.0f)
+			{
+				delete boxes[i];
+				boxes.erase(boxes.begin() + i);
+			}
+
 			glm::mat4 model2(1.0f);
 			model2 = glm::translate(model2, boxes[i]->GetPosition());
 			model2 = glm::rotate(model2, glm::radians(0.0f), glm::vec3(0, 1.0f, 0));
@@ -291,7 +312,6 @@ int main()
 	}
 
 	window.~Window();
-
 
 
 	return 0;

@@ -1,14 +1,15 @@
 #pragma once
 
 #include "GameObject.h"
-#include "Player.h"
+
+#include <random>
 
 struct Box: public GameObject
 {
-	Box() {}
+	Box();
 	~Box() {}
 
-	void Update(Player* player);
+	void Update();
 
 private:
 

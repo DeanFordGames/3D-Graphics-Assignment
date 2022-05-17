@@ -2,8 +2,8 @@ attribute vec3 a_Position;
 attribute vec2 a_TexCoord;                                    
 attribute vec3 a_Normal;                                      
                                                               
-uniform mat4 u_Projection;                                    
-uniform mat4 u_Model;                                         
+uniform mat4 u_Projection;                                  
+uniform mat4 u_Model;                                     
                                                               
 varying vec2 v_TexCoord;                                      
 varying vec3 v_Normal;                                        
