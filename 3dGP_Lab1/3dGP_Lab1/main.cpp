@@ -70,6 +70,15 @@ int main()
 		throw std::runtime_error("model not load");
 	}
 
+
+	WfModel croc = { 0 };
+
+	if (WfModelLoad("models/croc/Babycrocodile.obj", &croc) != 0)
+	{
+		throw std::runtime_error("model not load");
+	}
+
+
 	while (!quit)
 	{
 		double deltaTime = clock() - oldTime;
@@ -108,7 +117,7 @@ int main()
 		
 		player.Update(boxes);
 		glm::vec3 pos = player.GetPosition();
-		float angle = 180.0f;
+		float angle = 90.0f;
 
 		glm::mat4 model(1.0f);
 		model = glm::translate(model, pos);
@@ -130,9 +139,9 @@ int main()
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
 
-		glBindVertexArray(curuthers.vaoId);
-		glBindTexture(GL_TEXTURE_2D, curuthers.textureId);
-		glDrawArrays(GL_TRIANGLES, 0, curuthers.vertexCount);
+		glBindVertexArray(croc.vaoId);
+		glBindTexture(GL_TEXTURE_2D, croc.textureId);
+		glDrawArrays(GL_TRIANGLES, 0, croc.vertexCount);
 
 
 		glBindVertexArray(0);

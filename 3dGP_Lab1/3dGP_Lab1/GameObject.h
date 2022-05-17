@@ -3,7 +3,6 @@
 #include <glm/glm.hpp>
 #include <stdexcept>
 
-
 struct GameObject
 {
 	GameObject();
