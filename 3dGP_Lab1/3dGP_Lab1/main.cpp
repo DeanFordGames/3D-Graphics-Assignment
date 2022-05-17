@@ -118,8 +118,8 @@ int main()
 		{
 			player.Update(boxes);
 			player.Draw(cam.GetProjMatrix(), cam.GetViewMatrix());
-			cam.Update(&player);
 		}
+		cam.Update(&player, &window);
 
 		floor.Draw(cam.GetProjMatrix(), cam.GetViewMatrix());
 
@@ -260,7 +260,7 @@ int main()
 		glUseProgram(0);
 
 		mergeRT.unbind();
-		glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+		glViewport(0, 0, cam.GetWindowWidth(), cam.GetWindowHeight());
 
 		///////////////////////////////////////////////////
 

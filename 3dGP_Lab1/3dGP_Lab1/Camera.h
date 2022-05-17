@@ -2,9 +2,10 @@
 
 #include <glm/glm.hpp>
 #include <GL/glew.h>
-#include <glm/ext.hpp>
+#include <SDL2/SDL.h>
 
 #include "Player.h"
+#include "Window.h"
 
 struct Camera
 {
@@ -14,7 +15,10 @@ struct Camera
 	glm::mat4 GetProjMatrix() { return _proj_matrix; }
 	glm::mat4 GetViewMatrix() { return _view_matrix; }
 
-	void Update(Player* player);
+	int GetWindowWidth() { return _window_width; }
+	int GetWindowHeight() { return _window_height; }
+
+	void Update(Player* player, Window* window);
 
 
 private:
@@ -25,4 +29,7 @@ private:
 
 	glm::mat4 _view_matrix;
 	glm::mat4 _proj_matrix;
+
+	int _window_width;
+	int _window_height;
 };

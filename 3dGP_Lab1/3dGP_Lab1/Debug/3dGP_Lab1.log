@@ -1,4 +1,6 @@
 ﻿  Camera.cpp
+e:\uni labs\3dgraphics\3d-graphics-assignment\3dgp_lab1\3dgp_lab1\camera.cpp(9): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+e:\uni labs\3dgraphics\3d-graphics-assignment\3dgp_lab1\3dgp_lab1\camera.cpp(10): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
   main.cpp
 e:\uni labs\3dgraphics\3d-graphics-assignment\3dgp_lab1\3dgp_lab1\main.cpp(142): warning C4018: '<': signed/unsigned mismatch
   Generating Code...
