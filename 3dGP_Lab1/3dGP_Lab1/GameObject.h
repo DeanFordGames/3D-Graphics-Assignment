@@ -1,6 +1,9 @@
 #pragma once
 
 #include <glm/glm.hpp>
+#include <GL/glew.h>
+#include <glm/ext.hpp>
+
 #include <stdexcept>
 
 #include <wavefront/wavefront.h>
@@ -20,6 +23,8 @@ struct GameObject
 
 	WfModel GetModel() { return _model; }
 	void SetModel(const char* filePath);
+
+	void Draw(GLint modelLoc, GLint projLoc, glm::mat4 model, glm::mat4 projection);
 
 private:
 

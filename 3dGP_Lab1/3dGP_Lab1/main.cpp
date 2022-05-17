@@ -123,16 +123,8 @@ int main()
 
 		lshader.use();
 
-		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-		glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
 
-		glBindVertexArray(player.GetModel().vaoId);
-		glBindTexture(GL_TEXTURE_2D, player.GetModel().textureId);
-		glDrawArrays(GL_TRIANGLES, 0, player.GetModel().vertexCount);
-
-
-		glBindVertexArray(0);
-		glUseProgram(0);
+		player.Draw(modelLoc, projectionLoc, model, projection);
 
 		///
 
@@ -166,16 +158,8 @@ int main()
 
 			lshader.use();
 
-			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model2));
-			glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
 
-			glBindVertexArray(boxes[i]->GetModel().vaoId);
-			glBindTexture(GL_TEXTURE_2D, boxes[i]->GetModel().textureId);
-			glDrawArrays(GL_TRIANGLES, 0, boxes[i]->GetModel().vertexCount);
-
-
-			glBindVertexArray(0);
-			glUseProgram(0);
+			boxes[i]->Draw(modelLoc, projectionLoc, model2, projection);
 		}
 
 		///
