@@ -3,6 +3,8 @@
 #include <glm/glm.hpp>
 #include <stdexcept>
 
+#include <wavefront/wavefront.h>
+
 struct GameObject
 {
 	GameObject();
@@ -16,8 +18,13 @@ struct GameObject
 	float GetPositionX() { return _position.x; }
 	float GetPositionY() { return _position.y; }
 
+	WfModel GetModel() { return _model; }
+	void SetModel(const char* filePath);
+
 private:
 
 	glm::vec3 _position;
+
+	WfModel _model;
 
 };

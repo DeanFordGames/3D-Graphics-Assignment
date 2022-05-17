@@ -1,8 +1,8 @@
 ﻿  Box.cpp
   GameObject.cpp
-  main.cpp
-d:\stuffthings\3d-graphics-assignment\3dgp_lab1\3dgp_lab1\main.cpp(165): warning C4018: '<': signed/unsigned mismatch
   Player.cpp
 d:\stuffthings\3d-graphics-assignment\3dgp_lab1\3dgp_lab1\player.cpp(21): warning C4018: '<': signed/unsigned mismatch
+  main.cpp
+d:\stuffthings\3d-graphics-assignment\3dgp_lab1\3dgp_lab1\main.cpp(168): warning C4018: '<': signed/unsigned mismatch
   Generating Code...
   3dGP_Lab1.vcxproj -> D:\Stuffthings\3D-Graphics-Assignment\3dGP_Lab1\Debug\3dGP_Lab1.exe

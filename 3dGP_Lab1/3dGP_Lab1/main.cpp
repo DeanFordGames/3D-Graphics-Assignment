@@ -3,7 +3,7 @@
 #include <glm/glm.hpp>
 #include <glm/ext.hpp>
 
-#include <wavefront/wavefront.h>
+//#include <wavefront/wavefront.h>
 
 #include <vector>
 #include <iostream>
@@ -47,10 +47,12 @@ int main()
 
 	std::vector<Box*> boxes;
 	boxes.push_back(new Box());
+	boxes.back()->SetModel("models/curuthers/curuthers.obj");
 
 
 	Player player = Player();
 	player.SetPosition(glm::vec3(0, -2.5f, -15.0f));
+	player.SetModel("models/croc/Babycrocodile.obj");
 
 
 	bool quit = false;
@@ -62,21 +64,6 @@ int main()
 
 	GLint modelLoc = glGetUniformLocation(lshader.getId(), "u_Model");
 	GLint projectionLoc = glGetUniformLocation(lshader.getId(), "u_Projection");
-
-	WfModel curuthers = { 0 };
-
-	if (WfModelLoad("models/curuthers/curuthers.obj", &curuthers) != 0)
-	{
-		throw std::runtime_error("model not load");
-	}
-
-
-	WfModel croc = { 0 };
-
-	if (WfModelLoad("models/croc/Babycrocodile.obj", &croc) != 0)
-	{
-		throw std::runtime_error("model not load");
-	}
 
 
 	while (!quit)
@@ -139,9 +126,9 @@ int main()
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
 		glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
 
-		glBindVertexArray(croc.vaoId);
-		glBindTexture(GL_TEXTURE_2D, croc.textureId);
-		glDrawArrays(GL_TRIANGLES, 0, croc.vertexCount);
+		glBindVertexArray(player.GetModel().vaoId);
+		glBindTexture(GL_TEXTURE_2D, player.GetModel().textureId);
+		glDrawArrays(GL_TRIANGLES, 0, player.GetModel().vertexCount);
 
 
 		glBindVertexArray(0);
@@ -154,6 +141,7 @@ int main()
 			if (boxes.size() < 5)
 			{
 				boxes.push_back(new Box());
+				boxes.back()->SetModel("models/curuthers/curuthers.obj");
 				spawnTimer = 1000.0;
 			}
 		}
@@ -181,9 +169,9 @@ int main()
 			glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model2));
 			glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
 
-			glBindVertexArray(curuthers.vaoId);
-			glBindTexture(GL_TEXTURE_2D, curuthers.textureId);
-			glDrawArrays(GL_TRIANGLES, 0, curuthers.vertexCount);
+			glBindVertexArray(boxes[i]->GetModel().vaoId);
+			glBindTexture(GL_TEXTURE_2D, boxes[i]->GetModel().textureId);
+			glDrawArrays(GL_TRIANGLES, 0, boxes[i]->GetModel().vertexCount);
 
 
 			glBindVertexArray(0);
