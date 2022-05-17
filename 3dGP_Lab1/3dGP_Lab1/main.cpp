@@ -49,10 +49,15 @@ int main()
 
 
 	Player player = Player();
-	player.SetPosition(glm::vec3(0, -2.5f, -15.0f));
+	player.SetPosition(glm::vec3(0, -4.5f, -15.0f));
 	player.SetModel("models/croc/Babycrocodile.obj");
 	player.SetAngle(90.0f);
 
+
+	GameObject floor = GameObject();
+	floor.SetModel("models/floor/floor.obj");
+	floor.SetPosition(glm::vec3(0.0f, -6.0f, -60.0f));
+	floor.SetAngle(0.0f);
 
 	bool quit = false;
 	double oldTime = clock();
@@ -106,8 +111,13 @@ int main()
 
 		///
 
-		player.Update(boxes);
-		player.Draw();
+		if (player.GetDead() == false)
+		{
+			player.Update(boxes);
+			player.Draw();
+		}
+
+		floor.Draw();
 
 		///
 

@@ -10,13 +10,15 @@
 
 struct Player : public GameObject
 {
-	Player() {}
+	Player();
 	~Player() {}
 
 	void Update(std::vector<Box*> boxes);
 
 	void SetLeft(bool left) { _left = left; }
 	void SetRight(bool right) { _right = right; }
+
+	bool GetDead() { return _dead; }
 
 
 private:
@@ -25,5 +27,7 @@ private:
 	bool _right;
 
 	bool boxCollision(Box* box);
+
+	bool _dead;
 
 };

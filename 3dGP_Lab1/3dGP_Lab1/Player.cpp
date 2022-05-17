@@ -1,6 +1,13 @@
 #include "Player.h"
 
 
+Player::Player()
+{
+	_left = false;
+	_right = false;
+	_dead = false;
+}
+
 void Player::Update(std::vector<Box*> boxes)
 {
 	if (_left == true)
@@ -23,6 +30,7 @@ void Player::Update(std::vector<Box*> boxes)
 		if (boxCollision(boxes[i]) == true)
 		{
 			std::cout << "HIT" << std::endl;
+			_dead = true;
 			return;
 		}
 	}
