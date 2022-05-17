@@ -82,8 +82,30 @@ int main()
 			{
 				quit = true;
 			}
+			if (event.type == SDL_KEYDOWN)
+			{
+				if (event.key.keysym.sym == SDLK_a || event.key.keysym.sym == SDLK_LEFT)
+				{
+					player.SetLeft(true);
+				}
+				if (event.key.keysym.sym == SDLK_d || event.key.keysym.sym == SDLK_RIGHT)
+				{
+					player.SetRight(true);
+				}
+			}else if (event.type == SDL_KEYUP)
+			{
+				if (event.key.keysym.sym == SDLK_a || event.key.keysym.sym == SDLK_LEFT)
+				{
+					player.SetLeft(false);
+				}
+				if (event.key.keysym.sym == SDLK_d || event.key.keysym.sym == SDLK_RIGHT)
+				{
+					player.SetRight(false);
+				}
+			}
 		}
 		
+		player.Update();
 		glm::vec3 pos = player.GetPosition();
 		float angle = 180.0f;
 

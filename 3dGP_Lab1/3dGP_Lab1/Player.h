@@ -2,6 +2,9 @@
 
 #include "GameObject.h"
 
+#include <SDL2/SDL.h>
+
+
 struct Player : public GameObject
 {
 	Player() {}
@@ -9,6 +12,12 @@ struct Player : public GameObject
 
 	void Update();
 
+	void SetLeft(bool left) { _left = left; }
+	void SetRight(bool right) { _right = right; }
+
 private:
+
+	bool _left;
+	bool _right;
 
 };

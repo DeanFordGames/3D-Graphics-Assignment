@@ -14,6 +14,7 @@ struct GameObject
 	glm::vec3 GetPosition() { return _position; }
 
 	float GetPositionZ() { return _position.z; }
+	float GetPositionX() { return _position.x; }
 
 private:
 

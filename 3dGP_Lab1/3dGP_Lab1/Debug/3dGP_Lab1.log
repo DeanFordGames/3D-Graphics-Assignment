@@ -1,7 +1,2 @@
-﻿  Box.cpp
-  GameObject.cpp
-  main.cpp
-e:\uni labs\3dgraphics\3d-graphics-assignment\3dgp_lab1\3dgp_lab1\main.cpp(120): warning C4018: '<': signed/unsigned mismatch
-  Player.cpp
-  Generating Code...
+﻿  Player.cpp
   3dGP_Lab1.vcxproj -> E:\UNI LABS\3DGraphics\3D-Graphics-Assignment\3dGP_Lab1\Debug\3dGP_Lab1.exe
