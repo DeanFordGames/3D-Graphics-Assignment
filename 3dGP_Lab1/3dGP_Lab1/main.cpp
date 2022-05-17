@@ -23,6 +23,7 @@
 #include "Mesh.h"
 #include "Box.h"
 #include "GameObject.h"
+#include "Player.h"
 
 
 int main()
@@ -49,13 +50,16 @@ int main()
 	boxes.push_back(new Box());
 	boxes.push_back(new Box());
 
-	boxes[0]->SetPosition(glm::vec3(2.0f, 2.0f, -30.0f));
-	boxes[1]->SetPosition(glm::vec3(-2.0f, -2.0f, -30.0f));
+	boxes[0]->SetPosition(glm::vec3(2.0f, 0.0f, -30.0f));
+	boxes[1]->SetPosition(glm::vec3(-2.0f, 0.0f, -30.0f));
+
+	Player player = Player();
+	player.SetPosition(glm::vec3(0, -2.5f, -15.0f));
 
 	bool quit = false;
 
 
-	glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)WINDOW_WIDTH / (float)WINDOW_HEIGHT, 0.1f, 100.0f);
+	glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)WINDOW_WIDTH / (float)WINDOW_HEIGHT, 0.1f, 200.0f);
 
 
 	GLint modelLoc = glGetUniformLocation(lshader.getId(), "u_Model");
@@ -80,7 +84,7 @@ int main()
 			}
 		}
 		
-		glm::vec3 pos = glm::vec3(0, -2.5f, -15.0f);
+		glm::vec3 pos = player.GetPosition();
 		float angle = 180.0f;
 
 		glm::mat4 model(1.0f);
@@ -115,11 +119,10 @@ int main()
 
 		for (int i = 0; i < boxes.size(); i++)
 		{
-			boxes[i]->Update();
+			boxes[i]->Update(&player);
 			glm::mat4 model2(1.0f);
 			model2 = glm::translate(model2, boxes[i]->GetPosition());
 			model2 = glm::rotate(model2, glm::radians(0.0f), glm::vec3(0, 1.0f, 0));
-
 
 			lshader.use();
 
@@ -134,6 +137,8 @@ int main()
 			glBindVertexArray(0);
 			glUseProgram(0);
 		}
+
+		///
 
 
 		glDisable(GL_DEPTH_TEST);

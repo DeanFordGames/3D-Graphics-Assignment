@@ -1,10 +1,12 @@
 #pragma once
 
 #include <glm/glm.hpp>
+#include <stdexcept>
+
 
 struct GameObject
 {
-	GameObject() { _position = glm::vec3(0.0f, 0.0f, 0.0f); }
+	GameObject();
 	~GameObject() {}
 
 	void SetPosition(glm::vec3 pos) { _position = pos; }
