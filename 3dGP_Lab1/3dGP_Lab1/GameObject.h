@@ -8,6 +8,8 @@
 
 #include <wavefront/wavefront.h>
 
+#include "Shader.h"
+
 struct GameObject
 {
 	GameObject();
@@ -17,6 +19,10 @@ struct GameObject
 	void UpdatePosition(glm::vec3 pos) { _position += pos; }
 	glm::vec3 GetPosition() { return _position; }
 
+	void SetAngle(float angle) { _angle = angle; }
+	void UpdateAngle(float angle) { _angle += angle; }
+	float GetAngle() { return _angle; }
+
 	float GetPositionZ() { return _position.z; }
 	float GetPositionX() { return _position.x; }
 	float GetPositionY() { return _position.y; }
@@ -24,12 +30,21 @@ struct GameObject
 	WfModel GetModel() { return _model; }
 	void SetModel(const char* filePath);
 
-	void Draw(GLint modelLoc, GLint projLoc, glm::mat4 model, glm::mat4 projection);
+	void Draw();
 
 private:
 
 	glm::vec3 _position;
+	float _angle;
 
 	WfModel _model;
+
+	glm::mat4 _model_matrix;
+	glm::mat4 _proj_matrix;
+
+	GLint _model_loc;
+	GLint _proj_loc;
+
+	Shader* _shader;
 
 };

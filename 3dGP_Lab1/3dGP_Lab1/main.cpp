@@ -18,7 +18,6 @@
 
 #include "Window.h"
 #include "Texture.h"
-#include "Shader.h"
 #include "RenderTexture.h"
 #include "Mesh.h"
 #include "Box.h"
@@ -34,7 +33,6 @@ int main()
 	Mesh sm(0);
 	//create shaders
 	Shader shader("shaders/postprocessVertex.vert", "shaders/FShaderSrc.txt");
-	Shader lshader("shaders/lightVShaderSrc.txt", "shaders/lightFShaderSrc.txt");
 	Shader thesholdShader("shaders/postprocessVertex.vert", "shaders/thresholdFrag.frag");
 	Shader blurShader("shaders/postprocessVertex.vert", "shaders/blurFrag.frag");
 	Shader mergeShader("shaders/postprocessVertex.vert", "shaders/mergeFrag.frag");
@@ -53,17 +51,12 @@ int main()
 	Player player = Player();
 	player.SetPosition(glm::vec3(0, -2.5f, -15.0f));
 	player.SetModel("models/croc/Babycrocodile.obj");
+	player.SetAngle(90.0f);
 
 
 	bool quit = false;
 	double oldTime = clock();
 	double spawnTimer = 1000.0;
-
-	glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)WINDOW_WIDTH / (float)WINDOW_HEIGHT, 0.1f, 200.0f);
-
-
-	GLint modelLoc = glGetUniformLocation(lshader.getId(), "u_Model");
-	GLint projectionLoc = glGetUniformLocation(lshader.getId(), "u_Projection");
 
 
 	while (!quit)
@@ -102,14 +95,6 @@ int main()
 			}
 		}
 		
-		player.Update(boxes);
-		glm::vec3 pos = player.GetPosition();
-		float angle = 90.0f;
-
-		glm::mat4 model(1.0f);
-		model = glm::translate(model, pos);
-		model = glm::rotate(model, glm::radians(angle), glm::vec3(0, 1.0f, 0));
-
 
 		glViewport(0, 0, 200, 200);
 		rt.bind();
@@ -121,10 +106,8 @@ int main()
 
 		///
 
-		lshader.use();
-
-
-		player.Draw(modelLoc, projectionLoc, model, projection);
+		player.Update(boxes);
+		player.Draw();
 
 		///
 
@@ -152,14 +135,7 @@ int main()
 				boxes.erase(boxes.begin() + i);
 			}
 
-			glm::mat4 model2(1.0f);
-			model2 = glm::translate(model2, boxes[i]->GetPosition());
-			model2 = glm::rotate(model2, glm::radians(0.0f), glm::vec3(0, 1.0f, 0));
-
-			lshader.use();
-
-
-			boxes[i]->Draw(modelLoc, projectionLoc, model2, projection);
+			boxes[i]->Draw();
 		}
 
 		///
