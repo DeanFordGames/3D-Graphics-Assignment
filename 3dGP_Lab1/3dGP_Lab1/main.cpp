@@ -23,6 +23,7 @@
 #include "Box.h"
 #include "GameObject.h"
 #include "Player.h"
+#include "Camera.h"
 
 
 int main()
@@ -42,6 +43,8 @@ int main()
 	RenderTexture blurRT1(200, 200);
 	RenderTexture blurRT2(200, 200);
 	RenderTexture mergeRT(200, 200);
+
+	Camera cam = Camera();
 
 	std::vector<Box*> boxes;
 	boxes.push_back(new Box());
@@ -114,10 +117,11 @@ int main()
 		if (player.GetDead() == false)
 		{
 			player.Update(boxes);
-			player.Draw();
+			player.Draw(cam.GetProjMatrix(), cam.GetViewMatrix());
+			cam.Update(&player);
 		}
 
-		floor.Draw();
+		floor.Draw(cam.GetProjMatrix(), cam.GetViewMatrix());
 
 		///
 
@@ -145,7 +149,7 @@ int main()
 				boxes.erase(boxes.begin() + i);
 			}
 
-			boxes[i]->Draw();
+			boxes[i]->Draw(cam.GetProjMatrix(), cam.GetViewMatrix());
 		}
 
 		///

@@ -30,7 +30,7 @@ struct GameObject
 	WfModel GetModel() { return _model; }
 	void SetModel(const char* filePath);
 
-	void Draw();
+	void Draw(glm::mat4 projMatrix, glm::mat4 viewMatrix);
 
 private:
 
@@ -40,9 +40,9 @@ private:
 	WfModel _model;
 
 	glm::mat4 _model_matrix;
-	glm::mat4 _proj_matrix;
 
 	GLint _model_loc;
+	GLint _view_loc;
 	GLint _proj_loc;
 
 	Shader* _shader;
