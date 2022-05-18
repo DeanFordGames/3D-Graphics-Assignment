@@ -1,7 +1,5 @@
 #include "Texture.h"
 
-#include <stdexcept>
-#include <glm/stb_image.h>
 
 Texture::Texture(const char* fileName)
 {

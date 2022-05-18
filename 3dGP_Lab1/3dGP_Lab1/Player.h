@@ -19,6 +19,7 @@ struct Player : public GameObject
 	void SetRight(bool right) { _right = right; }
 
 	bool GetDead() { return _dead; }
+	void SetDead(bool dead) { _dead = dead; }
 
 
 private:

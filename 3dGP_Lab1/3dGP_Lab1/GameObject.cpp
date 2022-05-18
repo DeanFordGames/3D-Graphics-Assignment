@@ -1,5 +1,6 @@
 #include "GameObject.h"
 
+
 GameObject::GameObject()
 {
 	_position = glm::vec3(0.0f, 0.0f, 0.0f);
@@ -15,7 +16,7 @@ GameObject::GameObject()
 }
 
 void GameObject::SetModel(const char* filePath)
-{
+{//loading model to use
 	if (WfModelLoad(filePath, &_model) != 0)
 	{
 		throw std::runtime_error("model not load");
@@ -25,7 +26,7 @@ void GameObject::SetModel(const char* filePath)
 void GameObject::Draw(glm::mat4 projMatrix, glm::mat4 viewMatrix)
 {
 	_shader->use();
-
+	// update matrices and draw model
 	_model_matrix = { 1.0f };
 	_model_matrix = glm::translate(_model_matrix, _position);
 	_model_matrix = glm::rotate(_model_matrix, glm::radians(_angle), glm::vec3(0, 1.0f, 0));

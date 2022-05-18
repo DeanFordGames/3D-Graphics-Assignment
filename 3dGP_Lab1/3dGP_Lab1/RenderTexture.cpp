@@ -5,11 +5,12 @@
 
 RenderTexture::RenderTexture(int _width, int _height)
 {
+	//create frame buffer
 	glGenFramebuffers(1, &m_fboId);
 	if (!m_fboId)
 		throw std::runtime_error("frame buffer not found");
 	glBindFramebuffer(GL_FRAMEBUFFER, m_fboId);
-
+	//create, bind and initalize texture
 	glGenTextures(1, &m_texId);
 	if (!m_texId)
 		throw std::runtime_error("texture not found");
@@ -19,7 +20,7 @@ RenderTexture::RenderTexture(int _width, int _height)
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_texId, 0);
-
+	//create, bind and initalize render buffer
 	glGenRenderbuffers(1, &m_rboId);
 	if (!m_rboId)
 		throw std::runtime_error("render buffer not found");
@@ -37,16 +38,16 @@ RenderTexture::~RenderTexture()
 }
 
 void RenderTexture::bind()
-{
+{//bind buffer for use
 	glBindFramebuffer(GL_FRAMEBUFFER, m_fboId);
 }
 
 void RenderTexture::unbind()
-{
+{//unbind when done with
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
 GLuint RenderTexture::getTexture()
-{
+{//to use
 	return m_texId;
 }

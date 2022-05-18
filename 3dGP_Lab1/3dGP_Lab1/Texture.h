@@ -2,7 +2,8 @@
 
 #include <GL/glew.h>
 #include <glm/glm.hpp>
-
+#include <stdexcept>
+#include <glm/stb_image.h>
 
 
 struct Texture

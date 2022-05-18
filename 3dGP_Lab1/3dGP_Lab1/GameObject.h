@@ -28,6 +28,7 @@ struct GameObject
 	float GetPositionY() { return _position.y; }
 
 	WfModel GetModel() { return _model; }
+
 	void SetModel(const char* filePath);
 
 	void Draw(glm::mat4 projMatrix, glm::mat4 viewMatrix);
